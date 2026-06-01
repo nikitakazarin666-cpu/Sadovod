@@ -1,0 +1,1581 @@
+html_content = """<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Обувь штучно | Садовод 27-66 — Трендовый каталог обуви</title>
+    <meta name="description" content="Штучный заказ трендовой обуви на Садоводе 27-66. Мужская, женская, спортивная и классическая обувь по оптовым ценам от 1 пары с доставкой по всей России.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,800;0,900;1,800;1,900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        :root {
+            --bg-dark:     #08020f;
+            --bg-card:     rgba(20, 10, 32, 0.75);
+            --neon-pink:   #ff0055;
+            --neon-cyan:   #00f0ff;
+            --neon-purple: #9d00ff;
+            --text-light:  #ffffff;
+            --text-muted:  #9483a6;
+            --radius-sm:   8px;
+            --radius-md:   15px;
+            --radius-lg:   24px;
+            --radius-pill: 60px;
+            --font-display: 'Montserrat', sans-serif;
+            --font-body:    'Nunito', sans-serif;
+            --shadow-pink: 0 0 20px rgba(255, 0, 85, 0.35);
+            --shadow-cyan: 0 0 20px rgba(0, 240, 255, 0.35);
+            --transition:  all 0.3s ease;
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            font-family: var(--font-body);
+            color: var(--text-light);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── ГЛОБАЛЬНЫЕ СВЕЧЕНИЯ ── */
+        .glow-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(130px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.25;
+        }
+
+        /* ── ФИКСИРОВАННАЯ ШАПКА ── */
+        .fixed-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(8, 2, 15, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 0, 85, 0.2);
+        }
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 30px;
+            height: 80px;
+        }
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+        .logo-text span { 
+            color: var(--neon-pink); 
+            text-shadow: var(--shadow-pink);
+        }
+        .logo-sub {
+            font-size: 11px;
+            color: var(--neon-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+            text-shadow: var(--shadow-cyan);
+        }
+        .btn-nav-cta {
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple)) !important;
+            color: #fff !important;
+            padding: 12px 26px;
+            border-radius: var(--radius-pill);
+            box-shadow: var(--shadow-pink);
+            font-size: 12px !important;
+        }
+        .btn-nav-cta:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 0, 85, 0.6);
+        }
+
+        /* Гамбургер */
+        .hamburger {
+            display: none;
+            flex-direction: column; 
+            gap: 6px; 
+            cursor: pointer; 
+            border: none; 
+            background: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            display: block;
+            width: 26px; 
+            height: 3px; 
+            background: var(--neon-pink); 
+            border-radius: 2px; 
+            transition: var(--transition);
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+        .mobile-nav {
+            display: none;
+            position: fixed; 
+            top: 80px; left: 0; right: 0; bottom: 0;
+            background: rgba(8, 2, 15, 0.98); 
+            z-index: 999; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            gap: 20px; 
+            padding: 40px; 
+            opacity: 0; 
+            transform: translateY(-20px); 
+            transition: var(--transition); 
+            pointer-events: none;
+        }
+        .mobile-nav.open { 
+            opacity: 1; 
+            transform: translateY(0); 
+            pointer-events: auto;
+        }
+        .mobile-nav a { 
+            font-family: var(--font-display); 
+            color: #fff; 
+            text-decoration: none; 
+            font-weight: 800;
+            font-size: 20px; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        /* ── СЕКЦИИ ── */
+        .section { 
+            padding: 100px 24px; 
+            position: relative; 
+        }
+        .container { 
+            max-width: 1320px; 
+            margin: 0 auto; 
+            z-index: 2; 
+            position: relative; 
+        }
+
+        .section-eyebrow {
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            margin-bottom: 16px;
+        }
+        .eyebrow-line { 
+            width: 40px; 
+            height: 2px; 
+            background: var(--neon-cyan); 
+        }
+        .eyebrow-text { 
+            font-family: var(--font-display); 
+            font-size: 13px; 
+            font-weight: 800;
+            letter-spacing: 3px; 
+            text-transform: uppercase; 
+            color: var(--neon-cyan); 
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 5vw, 3.5rem); 
+            font-weight: 900;
+            text-transform: uppercase; 
+            text-align: center; 
+            margin-bottom: 16px; 
+            line-height: 1.1; 
+            font-style: italic;
+            letter-spacing: -1px;
+        }
+        .section-title em { 
+            color: var(--neon-pink); 
+            font-style: italic; 
+            text-shadow: var(--shadow-pink);
+        }
+        .section-sub {
+            text-align: center;
+            color: var(--text-muted); 
+            max-width: 650px; 
+            margin: 0 auto 60px; 
+            font-size: clamp(1rem, 2vw, 1.15rem); 
+            line-height: 1.6;
+        }
+
+        /* ── ГЛАВНЫЙ ЭКРАН (HERO) ── */
+        .hero {
+            position: relative;
+            min-height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            padding: 120px 24px 60px; 
+            overflow: hidden;
+        }
+        .hero-bg-glow {
+            position: absolute;
+            top: 52%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80vw; height: 80vw;
+            background: radial-gradient(circle, rgba(157,0,255,0.15) 0%, rgba(255,0,85,0.05) 50%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        .hero-inner {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+            max-width: 1320px;
+            z-index: 2;
+        }
+        .hero-content {
+            text-align: left;
+        }
+        .hero h1 { 
+            font-family: var(--font-display); 
+            font-size: clamp(2.8rem, 6vw, 5.5rem); 
+            font-weight: 900;
+            text-transform: uppercase; 
+            line-height: 0.95; 
+            margin-bottom: 25px; 
+            font-style: italic;
+        }
+        .hero h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.6);
+        }
+        .hero h1 em {
+            color: var(--neon-cyan);
+            text-shadow: var(--shadow-cyan);
+            font-style: italic;
+        }
+        .hero-tagline {
+            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+            font-weight: 600; 
+            color: var(--text-muted); 
+            margin-bottom: 40px;
+            line-height: 1.5;
+            border-left: 4px solid var(--neon-pink);
+            padding-left: 20px;
+        }
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .btn-primary {
+            background: var(--neon-pink);
+            color: white; 
+            padding: 18px 42px; 
+            border-radius: var(--radius-md);
+            font-family: var(--font-display); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 12px; 
+            border: none; 
+            cursor: pointer;
+            box-shadow: var(--shadow-pink); 
+            transition: var(--transition);
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .btn-primary:hover { 
+            background: #fff; 
+            color: var(--bg-dark);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.8); 
+            transform: translateY(-3px);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: white; 
+            padding: 18px 42px; 
+            border-radius: var(--radius-md);
+            font-family: var(--font-display); 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            text-decoration: none;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 2px solid var(--neon-cyan); 
+            cursor: pointer;
+            box-shadow: inset 0 0 10px rgba(0, 240, 255, 0.1);
+            transition: var(--transition);
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .btn-secondary:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            box-shadow: var(--shadow-cyan);
+            transform: translateY(-3px);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero-circle-deco {
+            position: absolute;
+            width: 110%;
+            height: 110%;
+            border: 1px dashed rgba(0, 240, 255, 0.2);
+            border-radius: 50%;
+            animation: rotateDeco 25s linear infinite;
+        }
+        .hero-image-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 2px solid var(--neon-pink);
+            box-shadow: var(--shadow-pink);
+            background: var(--bg-card);
+        }
+        .hero-image-wrapper img {
+            width: 100%;
+            display: block;
+            transform: scale(1.02);
+            filter: saturate(1.1) brightness(1.05);
+        }
+
+        @keyframes rotateDeco {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ── ИНФО-ЛЕНТА ── */
+        .info-strip { 
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+            padding: 18px 0; 
+            overflow: hidden; 
+            transform: rotate(-1.5deg) scale(1.02); 
+            margin: 30px 0; 
+            box-shadow: 0 0 35px rgba(255, 0, 85, 0.4);
+            z-index: 5;
+            position: relative;
+        }
+        .strip-track { 
+            display: flex; 
+            gap: 50px; 
+            animation: marquee 20s linear infinite;
+            white-space: nowrap; 
+        }
+        .strip-item { 
+            font-family: var(--font-display); 
+            font-style: italic; 
+            font-size: 22px; 
+            font-weight: 900;
+            color: #fff; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+        }
+
+        @keyframes marquee { 
+            from { transform: translateX(0); } 
+            to { transform: translateX(-50%); } 
+        }
+
+        /* ── КАТАЛОГ С ТАБАМИ ── */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 50px;
+        }
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-display);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .tab-btn:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.05);
+        }
+        .tab-btn.active {
+            background: var(--neon-cyan);
+            color: var(--bg-dark);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--shadow-cyan);
+            font-weight: 900;
+        }
+
+        /* Сетка товаров */
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+            gap: 30px;
+        }
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-pink);
+            box-shadow: var(--shadow-pink);
+        }
+        
+        /* Слайдер картинок в карточке */
+        .card-gallery {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 18px;
+            background: #120921;
+        }
+        .gallery-slides {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .slide-img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .slide-img.active {
+            opacity: 1;
+        }
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .nav-arrow {
+            width: 32px;
+            height: 32px;
+            background: rgba(8, 2, 15, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: var(--transition);
+            font-weight: bold;
+            user-select: none;
+        }
+        .nav-arrow:hover {
+            background: var(--neon-pink);
+            border-color: var(--neon-pink);
+        }
+        .gallery-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+            z-index: 3;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .dot.active {
+            background: var(--neon-cyan);
+            width: 14px;
+            border-radius: 4px;
+        }
+
+        /* Инфо о товаре */
+        .card-cat {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--neon-cyan);
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+        .card-sizes {
+            margin-bottom: 18px;
+        }
+        .sizes-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .sizes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .size-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .card-price {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 900;
+            color: #fff;
+            font-style: italic;
+        }
+        .btn-order {
+            background: transparent;
+            border: 1px solid var(--neon-pink);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: inset 0 0 5px rgba(255, 0, 85, 0.1);
+        }
+        .btn-order:hover {
+            background: var(--neon-pink);
+            box-shadow: var(--shadow-pink);
+            transform: scale(1.03);
+        }
+
+        /* ── ОТЗЫВЫ ── */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .review-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            position: relative;
+        }
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .review-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 16px;
+            color: var(--bg-dark);
+        }
+        .review-user h4 {
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .review-user span {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .review-stars {
+            color: #ffb700;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .review-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.6;
+        }
+        .reviews-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* ── КАК ЗАКАЗАТЬ И УСЛОВИЯ ── */
+        .info-box-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .info-box {
+            background: linear-gradient(145deg, rgba(20, 10, 32, 0.8), rgba(10, 5, 20, 0.8));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+        }
+        .info-box h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: var(--neon-cyan);
+            font-style: italic;
+        }
+        .cond-list {
+            list-style: none;
+        }
+        .cond-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        .cond-icon {
+            color: var(--neon-pink);
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 1;
+            margin-top: 2px;
+        }
+        .cond-text strong {
+            color: #fff;
+        }
+        .cond-text span {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .steps-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .step-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--neon-pink);
+            padding: 20px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        }
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--neon-pink);
+            line-height: 1;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .step-card h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+        .step-card p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* КОНТАКТЫ */
+        .contacts-wrapper {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-top: 40px;
+        }
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        .contact-method {
+            padding: 20px;
+            border-radius: var(--radius-md);
+            background: rgba(255,255,255,0.01);
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            border: 1px solid transparent;
+        }
+        .contact-method:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(0, 240, 255, 0.2);
+        }
+        .contact-title {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .contact-val {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .contact-method:hover .contact-val {
+            color: var(--neon-cyan);
+            text-shadow: var(--shadow-cyan);
+        }
+
+        /* ── ПОДВАЛ ── */
+        .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 40px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 60px;
+        }
+        .footer p {
+            margin-bottom: 10px;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+        }
+        .footer-links a:hover {
+            color: var(--neon-pink);
+        }
+
+        /* ── АДАПТИВНОСТЬ ── */
+        @media (max-width: 1024px) {
+            .hero-inner { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .hero-content { text-align: center; }
+            .hero-tagline { border-left: none; border-top: 2px solid var(--neon-pink); padding-left: 0; padding-top: 15px; }
+            .hero-buttons { justify-content: center; }
+            .info-box-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .section { padding: 70px 16px; }
+            .steps-wrapper { grid-template-columns: 1fr; }
+            .contacts-grid { grid-template-columns: 1fr; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="glow-blob" style="width: 500px; height: 500px; background: var(--neon-pink); top: -100px; left: -200px;"></div>
+<div class="glow-blob" style="width: 400px; height: 400px; background: var(--neon-purple); top: 30%; right: -200px;"></div>
+<div class="glow-blob" style="width: 600px; height: 600px; background: var(--neon-cyan); bottom: -100px; left: -150px;"></div>
+
+<header class="fixed-header">
+    <div class="header-inner">
+        <a href="#hero" class="logo">
+            <span class="logo-text">Садовод <span>27-66</span></span>
+            <span class="logo-sub">Ибрагим.СТ 7-156</span>
+        </a>
+        <nav class="nav-links">
+            <a href="#hero">Главная</a>
+            <a href="#catalog">Каталог</a>
+            <a href="#conditions">Условия</a>
+            <a href="#reviews">Отзывы</a>
+            <a href="https://vk.com/id430435190" target="_blank" class="btn-nav-cta">Написать в VK</a>
+        </nav>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+    <a href="#hero">Главная</a>
+    <a href="#catalog">Каталог</a>
+    <a href="#conditions">Условия</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="https://vk.com/id430435190" target="_blank" class="btn-primary" style="margin-top:20px; font-size:14px; padding:12px 30px;">Сделать заказ</a>
+</nav>
+
+<section class="hero" id="hero">
+    <div class="hero-bg-glow"></div>
+    <div class="hero-inner">
+        <div class="hero-content">
+            <div class="section-eyebrow" style="justify-content: flex-start;">
+                <div class="eyebrow-line"></div>
+                <span class="eyebrow-text">Штучно и Оптом</span>
+            </div>
+            <h1>Заряжай стиль.<br><span>Твоя обувь</span><br><em>По лучшей цене</em></h1>
+            <p class="hero-tagline">Премиальный выбор кроссовок, спортивной и классической обуви на ТК Садовод. Продажа штучно от 1 пары с быстрой доставкой по РФ.</p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn-primary">Открыть каталог</a>
+                <a href="#conditions" class="btn-secondary">Условия заказа</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-circle-deco"></div>
+            <div class="hero-image-wrapper">
+                <img src="images/hero_shoes.webp" alt="Стильная спортивная обувь" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80'">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="info-strip">
+    <div class="strip-track">
+        <span class="strip-item">ОТ 1 ПАРЫ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ПРЕДОПЛАТА 100%</span> <span class="strip-item">•</span>
+        <span class="strip-item">ОБМЕН ПРИ БРАКЕ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ДОСТАВКА В ТК И ПОЧТОЙ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ТРЕНДОВЫЕ КРОССОВКИ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ОТ 1 ПАРЫ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ПРЕДОПЛАТА 100%</span> <span class="strip-item">•</span>
+        <span class="strip-item">ОБМЕН ПРИ БРАКЕ</span> <span class="strip-item">•</span>
+    </div>
+</div>
+
+<section id="catalog" class="section">
+    <div class="container">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">Выбери свой формат</span>
+            <div class="eyebrow-line"></div>
+        </div>
+        <h2 class="section-title">Актуальный <em>Каталог</em></h2>
+        <p class="section-sub">Листайте фотографии, выбирайте размеры и заказывайте в один клик. Ссылка на товар автоматически добавится в сообщение менеджеру.</p>
+
+        <div class="tabs-container">
+            <button class="tab-btn active" data-filter="all">Все модели</button>
+            <button class="tab-btn" data-filter="male">Мужская</button>
+            <button class="tab-btn" data-filter="female">Женская</button>
+            <button class="tab-btn" data-filter="sport">Спортивная</button>
+            <button class="tab-btn" data-filter="classic">Классика</button>
+        </div>
+
+        <div class="catalog-grid">
+            
+            <div class="product-card" data-cat="male sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item1_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80'">
+                        <img src="images/item1_2.webp" class="slide-img" alt="Модель ракурс 2" onerror="this.src='https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Мужская / Спортивная</div>
+                <h3 class="card-title">Кроссовки Air Future X</h3>
+                <p class="card-desc">Легкие беговые кроссовки со светящимися неоновыми вставками. Превосходная амортизация.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">41</span>
+                        <span class="size-badge">42</span>
+                        <span class="size-badge">43</span>
+                        <span class="size-badge">44</span>
+                        <span class="size-badge">45</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">2 490 ₽</div>
+                    <a href="#" class="btn-order" data-id="001" data-name="Кроссовки Air Future X">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="female sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item2_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80'">
+                        <img src="images/item2_2.webp" class="slide-img" alt="Модель ракурс 2" onerror="this.src='https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Женская / Спортивная</div>
+                <h3 class="card-title">Кроссовки Cyber Pink Run</h3>
+                <p class="card-desc">Яркие футуристичные кроссовки для фитнеса и активного отдыха. Мягкая дышащая сетка.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">36</span>
+                        <span class="size-badge">37</span>
+                        <span class="size-badge">38</span>
+                        <span class="size-badge">39</span>
+                        <span class="size-badge">40</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">2 190 ₽</div>
+                    <a href="#" class="btn-order" data-id="002" data-name="Кроссовки Cyber Pink Run">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="male classic">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item3_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Мужская / Классика</div>
+                <h3 class="card-title">Туфли Лоферы Urban Black</h3>
+                <p class="card-desc">Классические кожаные лоферы для стильного повседневного или делового гардероба.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">40</span>
+                        <span class="size-badge">41</span>
+                        <span class="size-badge">42</span>
+                        <span class="size-badge">43</span>
+                        <span class="size-badge">44</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">3 200 ₽</div>
+                    <a href="#" class="btn-order" data-id="003" data-name="Туфли Лоферы Urban Black">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="female classic">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item4_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Женская / Классика</div>
+                <h3 class="card-title">Ботильоны Neon Heel</h3>
+                <p class="card-desc">Элегантная демисезонная обувь с устойчивым футуристичным каблуком.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">36</span>
+                        <span class="size-badge">37</span>
+                        <span class="size-badge">38</span>
+                        <span class="size-badge">39</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">2 990 ₽</div>
+                    <a href="#" class="btn-order" data-id="004" data-name="Ботильоны Neon Heel">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="male sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item5_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=400&q=80'">
+                        <img src="images/item5_2.webp" class="slide-img" alt="Модель ракурс 2" onerror="this.src='https://images.unsplash.com/photo-1597045566677-8cf032ed6634?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Мужская / Спортивная</div>
+                <h3 class="card-title">Кеды Street Carbon</h3>
+                <p class="card-desc">Прочные урбанистические кеды с карбоновой текстурой подошвы. Идеально под джинсы.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">39</span>
+                        <span class="size-badge">40</span>
+                        <span class="size-badge">41</span>
+                        <span class="size-badge">42</span>
+                        <span class="size-badge">43</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">1 950 ₽</div>
+                    <a href="#" class="btn-order" data-id="005" data-name="Кеды Street Carbon">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="female sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item6_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Женская / Спортивная</div>
+                <h3 class="card-title">Слипоны Air Breathe</h3>
+                <p class="card-desc">Максимально легкие текстильные слипоны для жарких дней и тренировок. Без шнурков.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">36</span>
+                        <span class="size-badge">37</span>
+                        <span class="size-badge">38</span>
+                        <span class="size-badge">39</span>
+                        <span class="size-badge">40</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">1 600 ₽</div>
+                    <a href="#" class="btn-order" data-id="006" data-name="Слипоны Air Breathe">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="male sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item7_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Мужская / Спортивная</div>
+                <h3 class="card-title">Кроссовки Hyper Quantum</h3>
+                <p class="card-desc">Премиум-реплика культовой спортивной модели. Лимитированная неоновая расцветка.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">41</span>
+                        <span class="size-badge">42</span>
+                        <span class="size-badge">43</span>
+                        <span class="size-badge">44</span>
+                        <span class="size-badge">45</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">3 500 ₽</div>
+                    <a href="#" class="btn-order" data-id="007" data-name="Кроссовки Hyper Quantum">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="female classic">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item8_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Женская / Классика</div>
+                <h3 class="card-title">Мюли Cyber Minimalist</h3>
+                <p class="card-desc">Стильная открытая классическая обувь на лето. Превосходная эко-кожа высокой прочности.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">35</span>
+                        <span class="size-badge">36</span>
+                        <span class="size-badge">37</span>
+                        <span class="size-badge">38</span>
+                        <span class="size-badge">39</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">2 300 ₽</div>
+                    <a href="#" class="btn-order" data-id="008" data-name="Мюли Cyber Minimalist">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="male classic">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item9_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav" style="display:none;">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Мужская / Классика</div>
+                <h3 class="card-title">Оксфорды Classic Gentleman</h3>
+                <p class="card-desc">Строгие классические оксфорды для деловых встреч и официальных торжеств.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">40</span>
+                        <span class="size-badge">41</span>
+                        <span class="size-badge">42</span>
+                        <span class="size-badge">43</span>
+                        <span class="size-badge">44</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">3 800 ₽</div>
+                    <a href="#" class="btn-order" data-id="009" data-name="Оксфорды Classic Gentleman">Заказать</a>
+                </div>
+            </div>
+
+            <div class="product-card" data-cat="female sport">
+                <div class="card-gallery" data-current="0">
+                    <div class="gallery-slides">
+                        <img src="images/item10_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80'">
+                        <img src="images/item10_2.webp" class="slide-img" alt="Модель ракурс 2" onerror="this.src='https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <div class="gallery-nav">
+                        <div class="nav-arrow prev">←</div>
+                        <div class="nav-arrow next">→</div>
+                    </div>
+                    <div class="gallery-dots"></div>
+                </div>
+                <div class="card-cat">Женская / Спортивная</div>
+                <h3 class="card-title">Кеды Pastel Neon Line</h3>
+                <p class="card-desc">Универсальные городские кеды с мягкой неоновой обводкой контура подошвы.</p>
+                <div class="card-sizes">
+                    <div class="sizes-label">Размеры в наличии:</div>
+                    <div class="sizes-list">
+                        <span class="size-badge">36</span>
+                        <span class="size-badge">37</span>
+                        <span class="size-badge">38</span>
+                        <span class="size-badge">39</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="card-price">1 890 ₽</div>
+                    <a href="#" class="btn-order" data-id="010" data-name="Кеды Pastel Neon Line">Заказать</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="conditions" class="section" style="background: rgba(255,255,255,0.01);">
+    <div class="container">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">Порядок работы</span>
+            <div class="eyebrow-line"></div>
+        </div>
+        <h2 class="section-title">Правила & <em>Условия заказа</em></h2>
+        <p class="section-sub">Ознакомьтесь с основными параметрами сотрудничества, оплаты и доставки грузов.</p>
+
+        <div class="info-box-grid">
+            <div class="info-box">
+                <h3>Условия сотрудничества</h3>
+                <ul class="cond-list">
+                    <li class="cond-item">
+                        <div class="cond-icon">✓</div>
+                        <div class="cond-text">
+                            <strong>Предоплата 100%</strong>
+                            <span>Все отправки осуществляются исключительно после полной оплаты заказа.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">✓</div>
+                        <div class="cond-text">
+                            <strong>Минималка от 1 пары</strong>
+                            <span>Вам не нужно выкупать коробками! Доступен поштучный заказ любой модели.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">✓</div>
+                        <div class="cond-text">
+                            <strong>Наш адрес в Москве</strong>
+                            <span>г. МОСКВА, 14-й км МКАД. ТК Садовод, Линия/Место 27-66.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">⚠️</div>
+                        <div class="cond-text">
+                            <strong>Обмен и Возврат</strong>
+                            <span>Только в случае выявления фабричного брака! В группе распродаж обмена и возврата нет.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h3>Тарифы на доставку</h3>
+                <ul class="cond-list">
+                    <li class="cond-item">
+                        <div class="cond-icon">📦</div>
+                        <div class="cond-text">
+                            <strong>До транспортных компаний (ТК) — 100 ₽</strong>
+                            <span>Доставляем до СДЭК, ПЭК, ВИКТОРИЯ, КИТ, ЭНЕРГИЯ. Саму межгородскую доставку оплачиваете при получении товара.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">✉️</div>
+                        <div class="cond-text">
+                            <strong>До отделения Почты России — 200 ₽</strong>
+                            <span>Почтовый расход за пересылку оплачивается клиентом по чеку после отправки посылки.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">🚌</div>
+                        <div class="cond-text">
+                            <strong>До рейсовых Автобусов — 100 ₽</strong>
+                            <span>Вам необходимо самостоятельно предоставить точные данные стоянки автобуса на Садоводе.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <h3 style="text-align:center; font-family:var(--font-display); font-size:20px; text-transform:uppercase; margin-top:50px; font-style:italic;">Схема покупки: всего 3 шага</h3>
+        <div class="steps-wrapper">
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <h4>Выбор модели</h4>
+                <p>Выберите обувь в каталоге и нажмите кнопку «Заказать» (ссылка скопируется автоматически).</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <h4>Подтверждение</h4>
+                <p>Укажите нужный размер менеджеру в VK, Telegram или WhatsApp и утвердите способ отправки.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <h4>Оплата и Получение</h4>
+                <p>Внесите 100% предоплату. Мы оперативно соберем заказ и отправим его выбранным путем с предоставлением трек-номера.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="reviews" class="section">
+    <div class="container">
+        <div class="section-eyebrow">
+            <div class="eyebrow-line"></div>
+            <span class="eyebrow-text">Обратная связь</span>
+            <div class="eyebrow-line"></div>
+        </div>
+        <h2 class="section-title">Что говорят <em>Клиенты</em></h2>
+        <p class="section-sub">Мы дорожим своей репутацией. Честные отзывы от организаторов совместных покупок и розничных клиентов.</p>
+
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">АГ</div>
+                    <div class="review-user">
+                        <h4>Анна Гусева</h4>
+                        <span>Организатор СП, г. Тверь</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Заказываю обувь штучно уже третий раз. Качество супер, кроссовки приходят точь-в-точь как на фото! До ТК СДЭК доносят очень быстро, треки скидывают без задержек. Спасибо Ибрагиму!</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">ДМ</div>
+                    <div class="review-user">
+                        <h4>Дмитрий Мамедов</h4>
+                        <span>Розничный покупатель, г. Тула</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Купил одну пару на пробу через автобус (водитель забрал). Все подошло идеально по размерной сетке, качество швов отличное, клеем не пахнет. Обязательно буду брать еще спортивные модели.</p>
+            </div>
+
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-avatar">ОК</div>
+                    <div class="review-user">
+                        <h4>Ольга Колесникова</h4>
+                        <span>Покупатель, г. Москва</span>
+                    </div>
+                </div>
+                <div class="review-stars">★★★★★</div>
+                <p class="review-text">Приятно работать, Хаким на Ватсапе отвечает мгновенно. Собрали посылку Почтой за сутки, скинули чек для оплаты расходов. Обувь штучно — это спасение, когда не нужен целый короб.</p>
+            </div>
+        </div>
+
+        <div class="reviews-cta">
+            <a href="https://vk.com/wall430435190_13053" target="_blank" class="btn-secondary" style="font-size:13px; padding:14px 35px;">Читать все отзывы на стене VK</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="padding-top: 20px;">
+    <div class="container">
+        <div class="contacts-wrapper">
+            <h3 style="font-family:var(--font-display); font-size:22px; text-transform:uppercase; text-align:center; margin-bottom:30px; font-style:italic;">Связаться напрямую для заказа</h3>
+            <div class="contacts-grid">
+                <a href="https://vk.com/id430435190" target="_blank" class="contact-method">
+                    <div class="contact-title">ВКонтакте профиль</div>
+                    <div class="contact-val">vk.com/id430435190</div>
+                </a>
+                <a href="https://wa.me/79684895604" target="_blank" class="contact-method">
+                    <div class="contact-title">WhatsApp (Хаким)</div>
+                    <div class="contact-val">+7 968 489-56-04</div>
+                </a>
+                <a href="https://t.me/ibragim_odinaev" target="_blank" class="contact-method">
+                    <div class="contact-title">Telegram Личка</div>
+                    <div class="contact-val">@ibragim_odinaev</div>
+                </a>
+            </div>
+            <div style="text-align: center; margin-top: 25px; font-size: 13px; color: var(--text-muted);">
+                Дополнительный Телеграм-канал распродаж: <a href="https://t.me/+oJSfr8-4YQozOWJi" target="_blank" style="color:var(--neon-cyan); text-decoration:none; font-weight:700;">Перейти в канал</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <p>© 2026 Обувь штучно | ТK Садовод, место 27-66. Все права защищены.</p>
+    <p style="font-size:12px; color:rgba(255,255,255,0.3);">Разработка и продвижение каталога — Bot Site PRO (BSP).</p>
+    <div class="footer-links">
+        <a href="#hero">Главная</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#conditions">Условия доставки</a>
+    </div>
+</footer>
+
+<script>
+    // 1. Мобильное адаптивное меню (Гамбургер)
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileNav.classList.toggle('open');
+    });
+
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileNav.classList.remove('open');
+        });
+    });
+
+    // 2. Инициализация каруселей/слайдеров для карточек товаров
+    const cards = document.querySelectorAll('.product-card');
+    
+    cards.forEach(card => {
+        const gallery = card.querySelector('.card-gallery');
+        const slidesContainer = gallery.querySelector('.gallery-slides');
+        const images = slidesContainer.querySelectorAll('.slide-img');
+        const dotsContainer = gallery.querySelector('.gallery-dots');
+        const prevBtn = gallery.querySelector('.prev');
+        const nextBtn = gallery.querySelector('.next');
+        
+        let currentIndex = 0;
+        const totalImages = images.length;
+        
+        // Создаем точки в зависимости от количества фото
+        if(totalImages > 1) {
+            for(let i=0; i<totalImages; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if(i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
+        
+        function updateSlides() {
+            images.forEach((img, index) => {
+                if(index === currentIndex) img.classList.add('active');
+                else img.classList.remove('active');
+            });
+            
+            const dots = dotsContainer.querySelectorAll('.dot');
+            dots.forEach((dot, index) => {
+                if(index === currentIndex) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+            gallery.setAttribute('data-current', currentIndex);
+        }
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlides();
+        }
+        
+        if(prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+                updateSlides();
+            });
+            nextBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentIndex = (currentIndex + 1) % totalImages;
+                updateSlides();
+            });
+        }
+    });
+
+    // 3. Фильтрация каталога при помощи Табов
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const productCards = document.querySelectorAll('.product-card');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Смена активного класса у кнопок табов
+            tabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filterValue = btn.getAttribute('data-filter');
+            
+            productCards.forEach(card => {
+                const cardCats = card.getAttribute('data-cat');
+                if (filterValue === 'all' || cardCats.includes(filterValue)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // 4. Динамическая генерация ссылки заказа в VK.me с параметрами товара
+    const orderBtns = document.querySelectorAll('.btn-order');
+    orderBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const prodId = btn.getAttribute('data-id');
+            const prodName = btn.getAttribute('data-name');
+            const currentUrl = window.location.href.split('#')[0]; // Получаем чистый URL без хеша
+            
+            // Формируем текст сообщения для Ибрагима в VK
+            const messageText = `Здравствуйте! Хочу заказать обувь с сайта.\\nТовар: ${prodName} (ID: ${prodId}).\\nСсылка на каталог: ${currentUrl}`;
+            const encodedText = encodeURIComponent(messageText);
+            
+            // Перенаправление на диалог vk.me с предзаполненным текстом
+            const vkUrl = `https://vk.me/id430435190?text=${encodedText}`;
+            window.open(vkUrl, '_blank');
+        });
+    });
+</script>
+</body>
+</html>
+"""
+
+# Сохранение сгенерированного файла
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+print("HTML file written successfully to 'index.html'.")
