@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Обувь штучно | Садовод 27-66 — Трендовый каталог обуви</title>
-    <meta name="description" content="Штучный заказ трендовой обуви на Садоводе 27-66. Мужская, женская, спортивная и классическая обувь по оптовым ценам от 1 пары с доставкой по всей России.">
+    <title>ХОД STORE — ваш магазин трендовых кроссовок</title>
+    <meta name="description" content="Забирай трендовые пары без переплаты. Актуальные кроссовки и streetwear модели с быстрой доставкой по России. Только популярные модели. Только актуальный стиль.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,800;0,900;1,800;1,900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -82,7 +82,7 @@
         }
         .logo-text {
             font-family: var(--font-display);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 900;
             color: var(--text-light);
             text-transform: uppercase;
@@ -94,11 +94,11 @@
             text-shadow: var(--shadow-pink);
         }
         .logo-sub {
-            font-size: 11px;
+            font-size: 10px;
             color: var(--neon-cyan);
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-top: 4px;
         }
 
@@ -295,11 +295,11 @@
             font-style: italic;
         }
         .hero-tagline {
-            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
             font-weight: 600; 
-            color: var(--text-muted); 
+            color: var(--text-light); 
             margin-bottom: 40px;
-            line-height: 1.5;
+            line-height: 1.6;
             border-left: 4px solid var(--neon-pink);
             padding-left: 20px;
         }
@@ -581,36 +581,13 @@
             margin-bottom: 10px;
             line-height: 1.3;
         }
-        .card-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 16px;
-            flex-grow: 1;
+        
+        /* Спрятанные элементы (теперь выводятся только в карточке товара) */
+        .product-card .card-desc,
+        .product-card .card-sizes {
+            display: none;
         }
-        .card-sizes {
-            margin-bottom: 18px;
-        }
-        .sizes-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .sizes-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        .size-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: var(--radius-sm);
-            font-size: 12px;
-            font-weight: 700;
-        }
+        
         .card-footer {
             display: flex;
             align-items: center;
@@ -618,6 +595,16 @@
             margin-top: auto;
             padding-top: 15px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .card-price-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .card-old-price {
+            font-size: 13px;
+            text-decoration: line-through;
+            color: var(--text-muted);
+            margin-bottom: 2px;
         }
         .card-price {
             font-family: var(--font-display);
@@ -644,6 +631,94 @@
             background: var(--neon-pink);
             box-shadow: var(--shadow-pink);
             transform: scale(1.03);
+        }
+
+        /* СТИЛЬ ДЛЯ КАРТОЧКИ ТОВАРА (МОДАЛЬНОЕ ОКНО) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 2, 15, 0.9);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 0, 85, 0.3);
+            box-shadow: var(--shadow-pink);
+            max-width: 800px;
+            width: 100%;
+            border-radius: var(--radius-lg);
+            position: relative;
+            padding: 40px 30px 30px;
+            animation: modalFadeIn 0.3s ease;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .close-modal {
+            position: absolute;
+            top: 15px; right: 20px;
+            font-size: 32px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .close-modal:hover {
+            color: var(--neon-pink);
+        }
+        .modal-body-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .modal-info-side {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .modal-sizes-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .sizes-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .sizes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .size-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .size-badge.selected {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.1);
+            color: #fff;
+        }
+
+        @media (max-width: 650px) {
+            .modal-body-layout { grid-template-columns: 1fr; }
+            .modal-content { max-height: 90vh; overflow-y: auto; padding: 30px 20px 20px; }
         }
 
         /* ── ОТЗЫВЫ ── */
@@ -702,12 +777,12 @@
             margin-top: 40px;
         }
 
-        /* ── КАК ЗАКАЗАТЬ И УСЛОВИЯ ── */
+        /* ── ПРЕИМУЩЕСТВА ── */
         .info-box-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 40px;
+            grid-template-columns: 1fr;
+            max-width: 800px;
+            margin: 0 auto 40px;
         }
         .info-box {
             background: linear-gradient(145deg, rgba(20, 10, 32, 0.8), rgba(10, 5, 20, 0.8));
@@ -717,7 +792,7 @@
         }
         .info-box h3 {
             font-family: var(--font-display);
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 800;
             text-transform: uppercase;
             margin-bottom: 25px;
@@ -731,25 +806,27 @@
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             font-size: 15px;
             line-height: 1.5;
         }
         .cond-icon {
             color: var(--neon-pink);
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             line-height: 1;
             margin-top: 2px;
         }
         .cond-text strong {
             color: #fff;
+            font-size: 17px;
+            display: block;
+            margin-bottom: 4px;
         }
         .cond-text span {
             display: block;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-muted);
-            margin-top: 4px;
         }
 
         .steps-wrapper {
@@ -865,7 +942,6 @@
             .hero-content { text-align: center; }
             .hero-tagline { border-left: none; border-top: 2px solid var(--neon-pink); padding-left: 0; padding-top: 15px; }
             .hero-buttons { justify-content: center; }
-            .info-box-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
@@ -886,13 +962,13 @@
 <header class="fixed-header">
     <div class="header-inner">
         <a href="#hero" class="logo">
-            <span class="logo-text">Садовод <span>27-66</span></span>
-            <span class="logo-sub">Ибрагим.СТ 7-156</span>
+            <span class="logo-text">ХОД <span>STORE</span></span>
+            <span class="logo-sub">ваш магазин трендовых кроссовкок</span>
         </a>
         <nav class="nav-links">
             <a href="#hero">Главная</a>
             <a href="#catalog">Каталог</a>
-            <a href="#conditions">Условия</a>
+            <a href="#conditions">Преимущества</a>
             <a href="#reviews">Отзывы</a>
             <a href="https://vk.com/id430435190" target="_blank" class="btn-nav-cta">Написать в VK</a>
         </nav>
@@ -903,7 +979,7 @@
 <nav class="mobile-nav" id="mobileNav">
     <a href="#hero">Главная</a>
     <a href="#catalog">Каталог</a>
-    <a href="#conditions">Условия</a>
+    <a href="#conditions">Преимущества</a>
     <a href="#reviews">Отзывы</a>
     <a href="https://vk.com/id430435190" target="_blank" class="btn-primary" style="margin-top:20px; font-size:14px; padding:12px 30px;">Сделать заказ</a>
 </nav>
@@ -914,13 +990,17 @@
         <div class="hero-content">
             <div class="section-eyebrow" style="justify-content: flex-start;">
                 <div class="eyebrow-line"></div>
-                <span class="eyebrow-text">Штучно и Оптом</span>
+                <span class="eyebrow-text">TREND & STREETWEAR</span>
             </div>
-            <h1>Заряжай стиль.<br><span>Твоя обувь</span><br><em>По лучшей цене</em></h1>
-            <p class="hero-tagline">Премиальный выбор кроссовок, спортивной и классической обуви на ТК Садовод. Продажа штучно от 1 пары с быстрой доставкой по РФ.</p>
+            <h1>ХОД STORE<br><em style="font-size: clamp(1.2rem, 3vw, 1.8rem); font-style: normal; text-transform: lowercase; display: block; margin-top: 12px; font-family: var(--font-body); letter-spacing: 1px; font-weight: 700; color: var(--neon-cyan);">ваш магазин трендовых кроссовок</em></h1>
+            <p class="hero-tagline">
+                Забирай трендовые пары без переплаты.<br>
+                Актуальные кроссовки и streetwear модели с быстрой доставкой по России.<br>
+                Только популярные модели. Только актуальный стиль.
+            </p>
             <div class="hero-buttons">
                 <a href="#catalog" class="btn-primary">Открыть каталог</a>
-                <a href="#conditions" class="btn-secondary">Условия заказа</a>
+                <a href="#conditions" class="btn-secondary">Преимущества магазина</a>
             </div>
         </div>
         <div class="hero-visual">
@@ -934,14 +1014,8 @@
 
 <div class="info-strip">
     <div class="strip-track">
-        <span class="strip-item">ОТ 1 ПАРЫ</span> <span class="strip-item">•</span>
-        <span class="strip-item">ПРЕДОПЛАТА 100%</span> <span class="strip-item">•</span>
-        <span class="strip-item">ОБМЕН ПРИ БРАКЕ</span> <span class="strip-item">•</span>
-        <span class="strip-item">ДОСТАВКА В ТК И ПОЧТОЙ</span> <span class="strip-item">•</span>
-        <span class="strip-item">ТРЕНДОВЫЕ КРОССОВКИ</span> <span class="strip-item">•</span>
-        <span class="strip-item">ОТ 1 ПАРЫ</span> <span class="strip-item">•</span>
-        <span class="strip-item">ПРЕДОПЛАТА 100%</span> <span class="strip-item">•</span>
-        <span class="strip-item">ОБМЕН ПРИ БРАКЕ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ТРЕНДЫ 2026 ДОСТАВКА ПО РФ НОВЫЕ ПОСТУПЛЕНИЯ ТОПОВЫЕ МОДЕЛИ</span> <span class="strip-item">•</span>
+        <span class="strip-item">ТРЕНДЫ 2026 ДОСТАВКА ПО РФ НОВЫЕ ПОСТУПЛЕНИЯ ТОПОВЫЕ МОДЕЛИ</span> <span class="strip-item">•</span>
     </div>
 </div>
 
@@ -952,20 +1026,21 @@
             <span class="eyebrow-text">Выбери свой формат</span>
             <div class="eyebrow-line"></div>
         </div>
-        <h2 class="section-title">Актуальный <em>Каталог</em></h2>
-        <p class="section-sub">Листайте фотографии, выбирайте размеры и заказывайте в один клик. Ссылка на товар автоматически добавится в сообщение менеджеру.</p>
+        <h2 class="section-title">Популярные <em>модели</em></h2>
+        <p class="section-sub">Листайте фотографии, нажимайте на любой товар для открытия подробной карточки и выбора доступных размеров.</p>
 
         <div class="tabs-container">
-            <button class="tab-btn active" data-filter="all">Все модели</button>
-            <button class="tab-btn" data-filter="male">Мужская</button>
-            <button class="tab-btn" data-filter="female">Женская</button>
-            <button class="tab-btn" data-filter="sport">Спортивная</button>
-            <button class="tab-btn" data-filter="classic">Классика</button>
+            <button class="tab-btn active" data-filter="hits">ХИТЫ</button>
+            <button class="tab-btn" data-filter="news">НОВИНКИ</button>
+            <button class="tab-btn" data-filter="street">УЛИЦА</button>
+            <button class="tab-btn" data-filter="sport">СПОРТ</button>
+            <button class="tab-btn" data-filter="premium">ПРЕМИУМ</button>
+            <button class="tab-btn" data-filter="discounts">СКИДКИ</button>
         </div>
 
         <div class="catalog-grid">
             
-            <div class="product-card" data-cat="male sport">
+            <div class="product-card" data-cat="hits sport">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item1_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&q=80'">
@@ -977,26 +1052,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Мужская / Спортивная</div>
+                <div class="card-cat">Хиты / Спорт</div>
                 <h3 class="card-title">Кроссовки Air Future X</h3>
-                <p class="card-desc">Легкие беговые кроссовки со светящимися неоновыми вставками. Превосходная амортизация.</p>
+                <p class="card-desc">Легкие беговые кроссовки со светящимися неоновыми вставками. Превосходная амортизация и воздухообмен.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">41</span>
-                        <span class="size-badge">42</span>
-                        <span class="size-badge">43</span>
-                        <span class="size-badge">44</span>
-                        <span class="size-badge">45</span>
-                    </div>
+                    <span class="size-badge">41</span>
+                    <span class="size-badge">42</span>
+                    <span class="size-badge">43</span>
+                    <span class="size-badge">44</span>
+                    <span class="size-badge">45</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">2 490 ₽</div>
-                    <a href="#" class="btn-order" data-id="001" data-name="Кроссовки Air Future X">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">5 490 ₽</span>
+                        <div class="card-price">2 490 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="001" data-name="Кроссовки Air Future X" data-old-price="5 490 ₽" data-price="2 490 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="female sport">
+            <div class="product-card" data-cat="news sport">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item2_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&q=80'">
@@ -1008,26 +1083,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Женская / Спортивная</div>
+                <div class="card-cat">Новинки / Спорт</div>
                 <h3 class="card-title">Кроссовки Cyber Pink Run</h3>
-                <p class="card-desc">Яркие футуристичные кроссовки для фитнеса и активного отдыха. Мягкая дышащая сетка.</p>
+                <p class="card-desc">Яркие футуристичные кроссовки для фитнеса и активного отдыха. Мягкая дышащая сетка, анатомическая стелька.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">36</span>
-                        <span class="size-badge">37</span>
-                        <span class="size-badge">38</span>
-                        <span class="size-badge">39</span>
-                        <span class="size-badge">40</span>
-                    </div>
+                    <span class="size-badge">36</span>
+                    <span class="size-badge">37</span>
+                    <span class="size-badge">38</span>
+                    <span class="size-badge">39</span>
+                    <span class="size-badge">40</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">2 190 ₽</div>
-                    <a href="#" class="btn-order" data-id="002" data-name="Кроссовки Cyber Pink Run">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">4 800 ₽</span>
+                        <div class="card-price">2 190 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="002" data-name="Кроссовки Cyber Pink Run" data-old-price="4 800 ₽" data-price="2 190 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="male classic">
+            <div class="product-card" data-cat="street premium">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item3_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1533867617858-e7b97e060509?auto=format&fit=crop&w=400&q=80'">
@@ -1038,26 +1113,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Мужская / Классика</div>
+                <div class="card-cat">Улица / Премиум</div>
                 <h3 class="card-title">Туфли Лоферы Urban Black</h3>
-                <p class="card-desc">Классические кожаные лоферы для стильного повседневного или делового гардероба.</p>
+                <p class="card-desc">Классические кожаные лоферы премиального качества для стильного повседневного или делового гардероба.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">40</span>
-                        <span class="size-badge">41</span>
-                        <span class="size-badge">42</span>
-                        <span class="size-badge">43</span>
-                        <span class="size-badge">44</span>
-                    </div>
+                    <span class="size-badge">40</span>
+                    <span class="size-badge">41</span>
+                    <span class="size-badge">42</span>
+                    <span class="size-badge">43</span>
+                    <span class="size-badge">44</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">3 200 ₽</div>
-                    <a href="#" class="btn-order" data-id="003" data-name="Туфли Лоферы Urban Black">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">6 900 ₽</span>
+                        <div class="card-price">3 200 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="003" data-name="Туфли Лоферы Urban Black" data-old-price="6 900 ₽" data-price="3 200 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="female classic">
+            <div class="product-card" data-cat="premium">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item4_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=400&q=80'">
@@ -1068,25 +1143,25 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Женская / Классика</div>
+                <div class="card-cat">Премиум</div>
                 <h3 class="card-title">Ботильоны Neon Heel</h3>
-                <p class="card-desc">Элегантная демисезонная обувь с устойчивым футуристичным каблуком.</p>
+                <p class="card-desc">Элегантная демисезонная обувь с устойчивым футуристичным каблуком. Комфортная колодка.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">36</span>
-                        <span class="size-badge">37</span>
-                        <span class="size-badge">38</span>
-                        <span class="size-badge">39</span>
-                    </div>
+                    <span class="size-badge">36</span>
+                    <span class="size-badge">37</span>
+                    <span class="size-badge">38</span>
+                    <span class="size-badge">39</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">2 990 ₽</div>
-                    <a href="#" class="btn-order" data-id="004" data-name="Ботильоны Neon Heel">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">6 500 ₽</span>
+                        <div class="card-price">2 990 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="004" data-name="Ботильоны Neon Heel" data-old-price="6 500 ₽" data-price="2 990 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="male sport">
+            <div class="product-card" data-cat="street sport">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item5_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=400&q=80'">
@@ -1098,26 +1173,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Мужская / Спортивная</div>
+                <div class="card-cat">Улица / Спорт</div>
                 <h3 class="card-title">Кеды Street Carbon</h3>
-                <p class="card-desc">Прочные урбанистические кеды с карбоновой текстурой подошвы. Идеально под джинсы.</p>
+                <p class="card-desc">Прочные урбанистические кеды с карбоновой текстурой подошвы. Идеально подходят под джинсы и свободный стиль.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">39</span>
-                        <span class="size-badge">40</span>
-                        <span class="size-badge">41</span>
-                        <span class="size-badge">42</span>
-                        <span class="size-badge">43</span>
-                    </div>
+                    <span class="size-badge">39</span>
+                    <span class="size-badge">40</span>
+                    <span class="size-badge">41</span>
+                    <span class="size-badge">42</span>
+                    <span class="size-badge">43</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">1 950 ₽</div>
-                    <a href="#" class="btn-order" data-id="005" data-name="Кеды Street Carbon">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">3 900 ₽</span>
+                        <div class="card-price">1 950 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="005" data-name="Кеды Street Carbon" data-old-price="3 900 ₽" data-price="1 950 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="female sport">
+            <div class="product-card" data-cat="discounts sport">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item6_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=400&q=80'">
@@ -1128,26 +1203,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Женская / Спортивная</div>
+                <div class="card-cat">Спорт / Скидки</div>
                 <h3 class="card-title">Слипоны Air Breathe</h3>
-                <p class="card-desc">Максимально легкие текстильные слипоны для жарких дней и тренировок. Без шнурков.</p>
+                <p class="card-desc">Максимально легкие текстильные слипоны для жарких дней и тренировок. Надежная посадка без шнурков.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">36</span>
-                        <span class="size-badge">37</span>
-                        <span class="size-badge">38</span>
-                        <span class="size-badge">39</span>
-                        <span class="size-badge">40</span>
-                    </div>
+                    <span class="size-badge">36</span>
+                    <span class="size-badge">37</span>
+                    <span class="size-badge">38</span>
+                    <span class="size-badge">39</span>
+                    <span class="size-badge">40</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">1 600 ₽</div>
-                    <a href="#" class="btn-order" data-id="006" data-name="Слипоны Air Breathe">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">3 500 ₽</span>
+                        <div class="card-price">1 600 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="006" data-name="Слипоны Air Breathe" data-old-price="3 500 ₽" data-price="1 600 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="male sport">
+            <div class="product-card" data-cat="premium hits">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item7_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?auto=format&fit=crop&w=400&q=80'">
@@ -1158,26 +1233,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Мужская / Спортивная</div>
+                <div class="card-cat">Хиты / Премиум</div>
                 <h3 class="card-title">Кроссовки Hyper Quantum</h3>
-                <p class="card-desc">Премиум-реплика культовой спортивной модели. Лимитированная неоновая расцветка.</p>
+                <p class="card-desc">Премиум-реплика культовой спортивной модели. Лимитированная неоновая расцветка и повышенная прочность.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">41</span>
-                        <span class="size-badge">42</span>
-                        <span class="size-badge">43</span>
-                        <span class="size-badge">44</span>
-                        <span class="size-badge">45</span>
-                    </div>
+                    <span class="size-badge">41</span>
+                    <span class="size-badge">42</span>
+                    <span class="size-badge">43</span>
+                    <span class="size-badge">44</span>
+                    <span class="size-badge">45</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">3 500 ₽</div>
-                    <a href="#" class="btn-order" data-id="007" data-name="Кроссовки Hyper Quantum">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">7 500 ₽</span>
+                        <div class="card-price">3 500 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="007" data-name="Кроссовки Hyper Quantum" data-old-price="7 500 ₽" data-price="3 500 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="female classic">
+            <div class="product-card" data-cat="street discounts">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item8_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?auto=format&fit=crop&w=400&q=80'">
@@ -1188,26 +1263,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Женская / Классика</div>
+                <div class="card-cat">Улица / Скидки</div>
                 <h3 class="card-title">Мюли Cyber Minimalist</h3>
-                <p class="card-desc">Стильная открытая классическая обувь на лето. Превосходная эко-кожа высокой прочности.</p>
+                <p class="card-desc">Стильная открытая классическая обувь на лето. Износостойкая эко-кожа высокого класса.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">35</span>
-                        <span class="size-badge">36</span>
-                        <span class="size-badge">37</span>
-                        <span class="size-badge">38</span>
-                        <span class="size-badge">39</span>
-                    </div>
+                    <span class="size-badge">35</span>
+                    <span class="size-badge">36</span>
+                    <span class="size-badge">37</span>
+                    <span class="size-badge">38</span>
+                    <span class="size-badge">39</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">2 300 ₽</div>
-                    <a href="#" class="btn-order" data-id="008" data-name="Мюли Cyber Minimalist">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">4 900 ₽</span>
+                        <div class="card-price">2 300 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="008" data-name="Мюли Cyber Minimalist" data-old-price="4 900 ₽" data-price="2 300 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="male classic">
+            <div class="product-card" data-cat="premium">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item9_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?auto=format&fit=crop&w=400&q=80'">
@@ -1218,26 +1293,26 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Мужская / Классика</div>
+                <div class="card-cat">Премиум</div>
                 <h3 class="card-title">Оксфорды Classic Gentleman</h3>
-                <p class="card-desc">Строгие классические оксфорды для деловых встреч и официальных торжеств.</p>
+                <p class="card-desc">Строгие классические оксфорды из натуральных материалов для деловых встреч и официальных торжеств.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">40</span>
-                        <span class="size-badge">41</span>
-                        <span class="size-badge">42</span>
-                        <span class="size-badge">43</span>
-                        <span class="size-badge">44</span>
-                    </div>
+                    <span class="size-badge">40</span>
+                    <span class="size-badge">41</span>
+                    <span class="size-badge">42</span>
+                    <span class="size-badge">43</span>
+                    <span class="size-badge">44</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">3 800 ₽</div>
-                    <a href="#" class="btn-order" data-id="009" data-name="Оксфорды Classic Gentleman">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">7 900 ₽</span>
+                        <div class="card-price">3 800 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="009" data-name="Оксфорды Classic Gentleman" data-old-price="7 900 ₽" data-price="3 800 ₽">Заказать</a>
                 </div>
             </div>
 
-            <div class="product-card" data-cat="female sport">
+            <div class="product-card" data-cat="news discounts">
                 <div class="card-gallery" data-current="0">
                     <div class="gallery-slides">
                         <img src="images/item10_1.webp" class="slide-img active" alt="Модель" onerror="this.src='https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=400&q=80'">
@@ -1249,21 +1324,21 @@
                     </div>
                     <div class="gallery-dots"></div>
                 </div>
-                <div class="card-cat">Женская / Спортивная</div>
+                <div class="card-cat">Новинки / Скидки</div>
                 <h3 class="card-title">Кеды Pastel Neon Line</h3>
-                <p class="card-desc">Универсальные городские кеды с мягкой неоновой обводкой контура подошвы.</p>
+                <p class="card-desc">Универсальные городские кеды с мягкой неоновой обводкой контура подошвы. Легкие и стильные.</p>
                 <div class="card-sizes">
-                    <div class="sizes-label">Размеры в наличии:</div>
-                    <div class="sizes-list">
-                        <span class="size-badge">36</span>
-                        <span class="size-badge">37</span>
-                        <span class="size-badge">38</span>
-                        <span class="size-badge">39</span>
-                    </div>
+                    <span class="size-badge">36</span>
+                    <span class="size-badge">37</span>
+                    <span class="size-badge">38</span>
+                    <span class="size-badge">39</span>
                 </div>
                 <div class="card-footer">
-                    <div class="card-price">1 890 ₽</div>
-                    <a href="#" class="btn-order" data-id="010" data-name="Кеды Pastel Neon Line">Заказать</a>
+                    <div class="card-price-container">
+                        <span class="card-old-price">4 100 ₽</span>
+                        <div class="card-price">1 890 ₽</div>
+                    </div>
+                    <a href="#" class="btn-order" data-id="010" data-name="Кеды Pastel Neon Line" data-old-price="4 100 ₽" data-price="1 890 ₽">Заказать</a>
                 </div>
             </div>
 
@@ -1271,73 +1346,76 @@
     </div>
 </section>
 
+<div id="product-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body-layout">
+            <div class="modal-gallery-side" id="modal-gallery-placeholder">
+                </div>
+            <div class="modal-info-side">
+                <div id="modal-cat" class="card-cat"></div>
+                <h3 id="modal-title" class="card-title" style="font-size:24px; margin-bottom:15px;"></h3>
+                <div style="margin-bottom:15px; display:flex; align-items:baseline; gap:12px;">
+                    <span id="modal-old-price" style="text-decoration:line-through; color:var(--text-muted); font-size:16px; font-family:var(--font-display); font-style:italic;"></span>
+                    <span id="modal-new-price" class="card-price" style="font-size:28px; color:var(--neon-cyan); text-shadow:var(--shadow-cyan);"></span>
+                </div>
+                <p id="modal-desc" class="card-desc" style="display:block; margin-bottom:20px; font-size:14px; line-height:1.5; color:rgba(255,255,255,0.85);"></p>
+                <div class="modal-sizes-container" style="margin-bottom:25px;">
+                    <div class="modal-sizes-title">Выберите размер:</div>
+                    <div id="modal-sizes-list" class="sizes-list"></div>
+                </div>
+                <a href="#" id="modal-order-btn" class="btn-primary" style="width:100%; text-align:center; justify-content:center;">Заказать</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section id="conditions" class="section" style="background: rgba(255,255,255,0.01);">
     <div class="container">
         <div class="section-eyebrow">
             <div class="eyebrow-line"></div>
-            <span class="eyebrow-text">Порядок работы</span>
+            <span class="eyebrow-text">Наши плюсы</span>
             <div class="eyebrow-line"></div>
         </div>
-        <h2 class="section-title">Правила & <em>Условия заказа</em></h2>
-        <p class="section-sub">Ознакомьтесь с основными параметрами сотрудничества, оплаты и доставки грузов.</p>
+        <h2 class="section-title">преимущества <em>магазина:</em></h2>
+        <p class="section-sub">Ознакомьтесь с сильными сторонами нашего сервиса перед оформлением покупок.</p>
 
         <div class="info-box-grid">
             <div class="info-box">
-                <h3>Условия сотрудничества</h3>
-                <ul class="cond-list">
-                    <li class="cond-item">
-                        <div class="cond-icon">✓</div>
-                        <div class="cond-text">
-                            <strong>Предоплата 100%</strong>
-                            <span>Все отправки осуществляются исключительно после полной оплаты заказа.</span>
-                        </div>
-                    </li>
-                    <li class="cond-item">
-                        <div class="cond-icon">✓</div>
-                        <div class="cond-text">
-                            <strong>Минималка от 1 пары</strong>
-                            <span>Вам не нужно выкупать коробками! Доступен поштучный заказ любой модели.</span>
-                        </div>
-                    </li>
-                    <li class="cond-item">
-                        <div class="cond-icon">✓</div>
-                        <div class="cond-text">
-                            <strong>Наш адрес в Москве</strong>
-                            <span>г. МОСКВА, 14-й км МКАД. ТК Садовод, Линия/Место 27-66.</span>
-                        </div>
-                    </li>
-                    <li class="cond-item">
-                        <div class="cond-icon">⚠️</div>
-                        <div class="cond-text">
-                            <strong>Обмен и Возврат</strong>
-                            <span>Только в случае выявления фабричного брака! В группе распродаж обмена и возврата нет.</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="info-box">
-                <h3>Тарифы на доставку</h3>
                 <ul class="cond-list">
                     <li class="cond-item">
                         <div class="cond-icon">📦</div>
                         <div class="cond-text">
-                            <strong>До транспортных компаний (ТК) — 100 ₽</strong>
-                            <span>Доставляем до СДЭК, ПЭК, ВИКТОРИЯ, КИТ, ЭНЕРГИЯ. Саму межгородскую доставку оплачиваете при получении товара.</span>
+                            <strong>Быстрая доставка</strong>
+                            <span>Оперативно собираем и отправляем ваши заказы по всей России транспортными компаниями и Почтой.</span>
                         </div>
                     </li>
                     <li class="cond-item">
-                        <div class="cond-icon">✉️</div>
+                        <div class="cond-icon">🔍</div>
                         <div class="cond-text">
-                            <strong>До отделения Почты России — 200 ₽</strong>
-                            <span>Почтовый расход за пересылку оплачивается клиентом по чеку после отправки посылки.</span>
+                            <strong>Проверка перед отправкой</strong>
+                            <span>Каждая пара обуви проходит строгий контроль качества на отсутствие дефектов перед упаковкой.</span>
                         </div>
                     </li>
                     <li class="cond-item">
-                        <div class="cond-icon">🚌</div>
+                        <div class="cond-icon">🔄</div>
                         <div class="cond-text">
-                            <strong>До рейсовых Автобусов — 100 ₽</strong>
-                            <span>Вам необходимо самостоятельно предоставить точные данные стоянки автобуса на Садоводе.</span>
+                            <strong>Обмен при браке</strong>
+                            <span>В случае обнаружения фабричного брака мы гарантируем быстрый и беспроблемный обмен товара.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">📸</div>
+                        <div class="cond-text">
+                            <strong>Фото/видео перед отправкой</strong>
+                            <span>Перед передачей в службу доставки высылаем подробные фото и видео вашей собранной пары.</span>
+                        </div>
+                    </li>
+                    <li class="cond-item">
+                        <div class="cond-icon">💬</div>
+                        <div class="cond-text">
+                            <strong>Поддержка менеджера</strong>
+                            <span>Персональный менеджер всегда на связи, поможет подобрать точный размер и ответит на любые вопросы.</span>
                         </div>
                     </li>
                 </ul>
@@ -1445,12 +1523,12 @@
 </section>
 
 <footer class="footer">
-    <p>© 2026 Обувь штучно | ТK Садовод, место 27-66. Все права защищены.</p>
+    <p>© 2026 ХОД STORE. Все права защищены.</p>
     <p style="font-size:12px; color:rgba(255,255,255,0.3);">Разработка и продвижение каталога — Bot Site PRO (BSP).</p>
     <div class="footer-links">
         <a href="#hero">Главная</a>
         <a href="#catalog">Каталог</a>
-        <a href="#conditions">Условия доставки</a>
+        <a href="#conditions">Преимущества</a>
     </div>
 </footer>
 
@@ -1533,9 +1611,21 @@
     const tabBtns = document.querySelectorAll('.tab-btn');
     const productCards = document.querySelectorAll('.product-card');
 
+    // Функция первичного сброса отображения по активному табу (ХИТЫ) при загрузке
+    function initFilter() {
+        productCards.forEach(card => {
+            const cardCats = card.getAttribute('data-cat');
+            if (cardCats.includes('hits')) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    initFilter();
+
     tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Смена активного класса у кнопок табов
             tabBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
@@ -1543,7 +1633,7 @@
             
             productCards.forEach(card => {
                 const cardCats = card.getAttribute('data-cat');
-                if (filterValue === 'all' || cardCats.includes(filterValue)) {
+                if (cardCats.includes(filterValue)) {
                     card.style.display = 'flex';
                 } else {
                     card.style.display = 'none';
@@ -1552,23 +1642,100 @@
         });
     });
 
-    // 4. Динамическая генерация ссылки заказа в VK.me с параметрами товара
-    const orderBtns = document.querySelectorAll('.btn-order');
-    orderBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
+    // 4. Открытие всплывающей карточки товара (Модальное окно) со скрытыми размерами и описанием
+    const modal = document.getElementById('product-modal');
+    const closeModal = document.querySelector('.close-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalCat = document.getElementById('modal-cat');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalOldPrice = document.getElementById('modal-old-price');
+    const modalNewPrice = document.getElementById('modal-new-price');
+    const modalSizesList = document.getElementById('modal-sizes-list');
+    const modalOrderBtn = document.getElementById('modal-order-btn');
+    const modalGalleryPlaceholder = document.getElementById('modal-gallery-placeholder');
+
+    productCards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+            // Исключаем срабатывание при клике на стрелки переключения галереи или навигационные точки
+            if (e.target.classList.contains('nav-arrow') || e.target.classList.contains('dot')) {
+                return;
+            }
             e.preventDefault();
-            const prodId = btn.getAttribute('data-id');
-            const prodName = btn.getAttribute('data-name');
-            const currentUrl = window.location.href.split('#')[0]; // Получаем чистый URL без хеша
+
+            const title = card.querySelector('.card-title').innerText;
+            const cat = card.querySelector('.card-cat').innerText;
+            const desc = card.querySelector('.card-desc').innerText;
             
-            // Формируем текст сообщения для Ибрагима в VK
-            const messageText = `Здравствуйте! Хочу заказать обувь с сайта.\\nТовар: ${prodName} (ID: ${prodId}).\\nСсылка на каталог: ${currentUrl}`;
-            const encodedText = encodeURIComponent(messageText);
-            
-            // Перенаправление на диалог vk.me с предзаполненным текстом
-            const vkUrl = `https://vk.me/id430435190?text=${encodedText}`;
-            window.open(vkUrl, '_blank');
+            const btnOrderEl = card.querySelector('.btn-order');
+            const oldPrice = btnOrderEl.getAttribute('data-old-price');
+            const newPrice = btnOrderEl.getAttribute('data-price');
+            const prodId = btnOrderEl.getAttribute('data-id');
+
+            // Заполнение текстовых полей модального окна
+            modalTitle.innerText = title;
+            modalCat.innerText = cat;
+            modalDesc.innerText = desc;
+            modalOldPrice.innerText = oldPrice;
+            modalNewPrice.innerText = newPrice;
+
+            // Настройка передачи параметров в кнопку Заказать внутри модального окна
+            modalOrderBtn.setAttribute('data-id', prodId);
+            modalOrderBtn.setAttribute('data-name', title);
+
+            // Клонирование и перенос доступных размеров обуви во всплывающее окно
+            modalSizesList.innerHTML = '';
+            const origSizes = card.querySelectorAll('.card-sizes .size-badge');
+            origSizes.forEach(sizeSpan => {
+                const badge = document.createElement('span');
+                badge.classList.add('size-badge');
+                badge.style.cursor = 'pointer';
+                badge.innerText = sizeSpan.innerText;
+                
+                badge.addEventListener('click', () => {
+                    modalSizesList.querySelectorAll('.size-badge').forEach(b => b.classList.remove('selected'));
+                    badge.classList.add('selected');
+                });
+                modalSizesList.appendChild(badge);
+            });
+
+            // Дублирование активной картинки из слайдера
+            const currentActiveImg = card.querySelector('.slide-img.active').src;
+            modalGalleryPlaceholder.innerHTML = `<img src="${currentActiveImg}" style="width:100%; border-radius:var(--radius-md); border:1px solid rgba(255,255,255,0.1); object-fit:cover; height:320px;" alt="${title}">`;
+
+            // Плавный вывод окна
+            modal.style.display = 'flex';
         });
+    });
+
+    // Закрытие модального окна карточки
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // 5. Обработчик отправки заказа в VK для кнопки внутри Модального окна
+    modalOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const prodId = modalOrderBtn.getAttribute('data-id');
+        const prodName = modalOrderBtn.getAttribute('data-name');
+        
+        // Попытка взять выбранный пользователем размер
+        const selectedSizeEl = modalSizesList.querySelector('.size-badge.selected');
+        const sizeText = selectedSizeEl ? ` (Размер: ${selectedSizeEl.innerText})` : '';
+        
+        const currentUrl = window.location.href.split('#')[0];
+        
+        const messageText = `Здравствуйте! Хочу заказать обувь с сайта ХОД STORE.\\nТовар: ${prodName}${sizeText} (ID: ${prodId}).\\nСсылка на каталог: ${currentUrl}`;
+        const encodedText = encodeURIComponent(messageText);
+        
+        const vkUrl = `https://vk.me/id430435190?text=${encodedText}`;
+        window.open(vkUrl, '_blank');
     });
 </script>
 </body>
